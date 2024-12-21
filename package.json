@@ -1,0 +1,31 @@
+{
+  "name": "tofound",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon app.server.js",
+    "start": "node app.server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/programming-hero-web-course2/b10a11-server-side-StackMastery.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/programming-hero-web-course2/b10a11-server-side-StackMastery/issues"
+  },
+  "homepage": "https://github.com/programming-hero-web-course2/b10a11-server-side-StackMastery#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
