@@ -13,7 +13,7 @@ const authUserToken = async (req, res) => {
 
         return res.cookie('token', token, {
             httpOnly: true,
-            secure: false,
+            secure: true,
         }).send({succes: true})
     }
     catch{
