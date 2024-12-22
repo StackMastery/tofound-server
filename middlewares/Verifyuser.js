@@ -20,4 +20,4 @@ const VerifyUser = async (req, res, next) => {
 
 }
 
-// export { VerifyUser }
+export { VerifyUser }
