@@ -7,6 +7,7 @@ export const connectDB = async () => {
         console.warn(`Mongo DB connectiong succesfull to ${conn.connection.db.databaseName}`)
     }
     catch(err){
-        console.error(`Something went wrong to connect to databse`)
+        console.error(`Something went wrong to connect to databse` + err)
+        throw err
     }
 }
