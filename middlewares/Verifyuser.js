@@ -11,7 +11,7 @@ const VerifyUser = async (req, res, next) => {
         if(decodeToken){
             return next()
         }else{
-            return res.status(400).send('Unautorized user')
+            return res.status(400).send('Unautorized user' + token)
         }
     }
     catch(err){
