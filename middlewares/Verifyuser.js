@@ -34,11 +34,11 @@ const VerifyUser = async (req, res, next) => {
     }
 
     try {
-        const decodeToken = jwt.verify(token, process.env.JWT_SECRET);
+        const decodeToken = await jwt.verify(token, process.env.JWT_SECRET);
 
         // Check if the UID in the token matches the UID in the request
         if (decodeToken.uid === uid) {
-            return res.send({succes: true})
+            return next();
         } else {
             return res.status(401).send('Unauthorized user: UID mismatch');
         }
