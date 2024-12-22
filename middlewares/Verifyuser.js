@@ -15,7 +15,7 @@ const VerifyUser = async (req, res, next) => {
         }
     }
     catch(err){
-        return res.status(200).send('Unautorized user')
+        return res.status(200).send('Unautorized user' + err + token)
     }
 
 }
