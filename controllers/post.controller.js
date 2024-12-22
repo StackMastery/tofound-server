@@ -27,7 +27,6 @@ const CreateNewPost = async (req, res) => {
         }else{
             res.status(400).send({succes: false})
         }
-
     }
     catch(err){
         res.send(err)
