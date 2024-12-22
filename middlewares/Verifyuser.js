@@ -2,26 +2,28 @@ import jwt from 'jsonwebtoken'
 
 // User Jwt Token Verify Middleware
 const VerifyUser = async (req, res, next) => {
-    const token = req?.cookies?.token
-    const { uid } = req.query
+    const token = req?.cookies?.token;
+    const { uid } = req.query;
 
-    if(!token || !uid){
-        return res.status(200).send('Unautorized user')
+    // Check if token and uid exist in the request
+    if (!token || !uid) {
+        return res.status(401).send('Unauthorized: Missing token or user ID');
     }
 
-    try{
-        const decodeToken = jwt.verify(token, process.env.JWT_SECRET)
+    try {
+        // Verify the token
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
 
-        if(decodeToken.uid === uid){
-            return next()
-        }else{
-            return res.status(200).send('Unautorized user')
+        // Check if the user ID in the token matches the one in the query
+        if (decodedToken.uid === uid) {
+            return next();  // Proceed to the next middleware or route handler
+        } else {
+            return res.status(403).send('Unauthorized: Token does not match user ID');
         }
+    } catch (err) {
+        // Return an internal server error if token verification fails
+        return res.status(500).send('Unauthorized: Token verification failed');
     }
-    catch(err){
-        return res.status(200).send('Unautorized user')
-    }
-
 }
 
 export { VerifyUser }
