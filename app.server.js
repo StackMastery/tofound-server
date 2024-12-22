@@ -1,6 +1,7 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
+import cookieParser from 'cookie-parser'
 import { connectDB } from './db/dbConnect.js'
 import { mainRouter } from './routes/main.routes.js'
 
@@ -12,9 +13,15 @@ const app = express() // Express
 const port = process.env.PORT || 3000 // Application Port
 
 // Middlewares
-app.use(cors()) // Cors Origin Policy
+app.use(cors({
+    origin: process.env.CORS_ORIGIN,
+    credentials: true, 
+}));
+
+// Cors Origin Policy
 app.use(express.urlencoded({ extended: true })) // Urlencoded Middleware
 app.use(express.json()) // Json Middleware
+app.use(cookieParser()) //to Handel frontend cookie
 
 // Routes Middleware Used
 app.use(mainRouter)
