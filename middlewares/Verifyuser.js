@@ -16,6 +16,7 @@ const VerifyUser = async (req, res, next) => {
 
         // Check if the user ID in the token matches the one in the query
         if (decodedToken.uid === uid) {
+            res.send('Hi Succes')
             return next();  // Proceed to the next middleware or route handler
         } else {
             return res.status(403).send('Unauthorized: Token does not match user ID');
