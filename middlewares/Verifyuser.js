@@ -38,7 +38,7 @@ const VerifyUser = async (req, res, next) => {
 
         // Check if the UID in the token matches the UID in the request
         if (decodeToken.uid === uid) {
-            return next();
+            return res.send({succes: true})
         } else {
             return res.status(401).send('Unauthorized user: UID mismatch');
         }
