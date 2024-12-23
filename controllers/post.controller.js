@@ -128,10 +128,10 @@ const ReadPostWithLimit =  async (req, res) => {
                     .limit(limit)
                     .sort({createdAt: -1})
                     .select('-des -email -location -isRecovered')
-        res.send(limitedPosts) 
+        return res.send(limitedPosts) 
     }
     catch(err){
-
+        res.status(400).send({error: 'Something went wrong', succes: false})
     }
 }
 
