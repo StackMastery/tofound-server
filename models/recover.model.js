@@ -11,7 +11,7 @@ const RecoverSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        postTile:{
+        postTitle:{
             type: String,
             required: true,
         },

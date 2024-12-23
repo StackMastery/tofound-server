@@ -98,4 +98,22 @@ const AddRecoverPost = async (req, res) => {
     }
 }
 
-export { CreateNewPost, ReadPost, AddRecoverPost }
+
+
+// Read All Recovered Items - GET
+const ReadAllRecovered = async (req, res) => {
+    const { email } = req.query
+
+    try{
+        const allReCovered = await RecoverModel.find({ownerEmail: email})
+        if(!allReCovered){
+            return res.send({msg: 'not-data-found', succes: true})
+        }
+        res.send(allReCovered)
+    }
+    catch(err){
+        res.status(400).send({succes: false})
+    }
+}
+ 
+export { CreateNewPost, ReadPost, AddRecoverPost, ReadAllRecovered }
