@@ -116,4 +116,23 @@ const ReadAllRecovered = async (req, res) => {
     }
 }
  
-export { CreateNewPost, ReadPost, AddRecoverPost, ReadAllRecovered }
+// Read all latest posts with limit
+const ReadPostWithLimit =  async (req, res) => {
+
+    const limit = parseInt(req.query.limit) || 6
+
+    try{
+        const limitedPosts = 
+                await PostModel
+                    .find()
+                    .limit(limit)
+                    .sort({createdAt: -1})
+                    .select('-des -email -location -isRecovered')
+        res.send(limitedPosts) 
+    }
+    catch(err){
+
+    }
+}
+
+export { CreateNewPost, ReadPost, AddRecoverPost, ReadAllRecovered, ReadPostWithLimit }

@@ -24,4 +24,11 @@ const authUserToken = async (req, res) => {
     }
 }
 
-export { authUserToken }
+// Logout
+const AuthLogout = (req, res) => {
+    res.
+        clearCookie('token')
+        .send({succes: true})
+}
+
+export { authUserToken, AuthLogout }

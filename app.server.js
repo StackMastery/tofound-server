@@ -4,6 +4,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import { connectDB } from './db/dbConnect.js'
 import { mainRouter } from './routes/main.routes.js'
+import { VerifyOrigin } from './middlewares/VerifyOrigin.js'
 
 // Loading Dotenv On First When Application Load
 dotenv.config()
@@ -22,10 +23,10 @@ app.use(cors({
 app.use(express.urlencoded({ extended: true })) // Urlencoded Middleware
 app.use(express.json()) // Json Middleware
 app.use(cookieParser()) //to Handel frontend cookie
+app.use(VerifyOrigin)
 
 // Routes Middleware Used
 app.use(mainRouter)
-
 
 // In my application i like to listen app after connected to mongodb databse 
 // Databse Connection
