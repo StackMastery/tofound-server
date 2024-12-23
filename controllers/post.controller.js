@@ -62,7 +62,7 @@ const AddRecoverPost = async (req, res) => {
     const { 
         ownerName,
         ownerEmail,
-        postTile,
+        postTitle,
         location,
         postId,
         postLostDate,
@@ -82,7 +82,7 @@ const AddRecoverPost = async (req, res) => {
         const newRecover = new RecoverModel({
             ownerName,
             ownerEmail,
-            postTile,
+            postTitle,
             location,
             postId,
             postLostDate,
