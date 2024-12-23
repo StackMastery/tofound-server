@@ -1,7 +1,8 @@
 import { VerifyUser } from "../middlewares/Verifyuser.js"
 import { PostModel } from "../models/post.model.js"
+import { RecoverModel } from "../models/recover.model.js"
 
-// Create A New Post 
+// Create A New Post - PORT
 const CreateNewPost = async (req, res) => {
 
     const { authorName, email, lostDate, avatar, postType, category, des, location, title, thumb } = req.body
@@ -33,4 +34,68 @@ const CreateNewPost = async (req, res) => {
     }
 }
 
-export { CreateNewPost }
+
+// Post Reading - GET
+const ReadPost = async (req, res) => {
+    const { postid } = req.query
+
+    if(!postid){
+        return res.status(400).send({msg: 'Must give post id'})
+    }
+
+    try{
+        const post = await PostModel.findById(postid)
+        if(post){
+            return res.send(post)
+        }else{
+            return res.status(400).send({error: 'no-post-found'})
+        }
+    }
+    catch(err){
+        return res.status(400).send({error: 'no-post-found'})
+    }
+}   
+
+
+// Recover Post - POST
+const AddRecoverPost = async (req, res) => {
+    const { 
+        ownerName,
+        ownerEmail,
+        postTile,
+        location,
+        postId,
+        postLostDate,
+        recoverDate
+    } = req.body
+    try{
+        const updatePost = await PostModel.findByIdAndUpdate(
+            postId,
+            {isRecovered: true},
+            { new: true, runValidators: true } 
+        )
+
+        if(!updatePost){
+            return res.status(400).send({error: 'post-not-updated', succes: false})
+        }
+
+        const newRecover = new RecoverModel({
+            ownerName,
+            ownerEmail,
+            postTile,
+            location,
+            postId,
+            postLostDate,
+            recoverDate
+        })
+
+        const savedRecover = await newRecover.save()
+
+        res.send(savedRecover)
+    }   
+    catch(err){
+        res.status(400).send(err)
+    }
+}
+
+export { CreateNewPost, ReadPost, AddRecoverPost }

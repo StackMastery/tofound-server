@@ -41,6 +41,10 @@ const PostSchema = new mongoose.Schema(
         authorName:{
             type: String, 
             required: true
+        },
+        isRecovered:{
+            type: Boolean,
+            default: false,
         }
     },
     {
