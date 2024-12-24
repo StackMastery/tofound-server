@@ -179,4 +179,38 @@ const DialogeletePostByPostId = async (req, res) => {
 };
 
 
-export { CreateNewPost, ReadPost, AddRecoverPost, ReadAllRecovered, ReadPostWithLimit, ReadAllUserPostedItems, DialogeletePostByPostId }
+// UpdatePostBy Id
+const UpdatePostById = async (req, res) => {
+    const { postid } = req.query;
+    const { authorName, email, lostDate, avatar, postType, category, des, location, title, thumb } = req.body;
+  
+    try {
+      const findAndUpdate = await PostModel.findByIdAndUpdate(
+        postid,
+        {
+          thumb: thumb,
+          title: title,
+          des: des,
+          postType: postType,
+          category: category,
+          location: location,
+          lostDate: lostDate,
+          email: email,
+          avatar: avatar,
+          authorName: authorName,
+        },
+        { new: true, runValidators: true }
+      );
+  
+      if (!findAndUpdate) {
+        return res.status(404).json({ msg: 'Post not found' , succes: true});
+      }
+
+      res.status(200).json(findAndUpdate);
+    } catch (err) {  
+      res.status(500).json({ msg: 'Something went wrong to updating the post', error: err.message });
+    }
+  };
+  
+
+export { CreateNewPost, ReadPost, AddRecoverPost, ReadAllRecovered, ReadPostWithLimit, ReadAllUserPostedItems, DialogeletePostByPostId, UpdatePostById }

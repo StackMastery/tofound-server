@@ -1,6 +1,6 @@
 import express from 'express'
 import { AuthLogout, authUserToken } from '../controllers/auth.controller.js'
-import { AddRecoverPost, CreateNewPost, DialogeletePostByPostId, ReadAllRecovered, ReadAllUserPostedItems, ReadPost, ReadPostWithLimit } from '../controllers/post.controller.js'
+import { AddRecoverPost, CreateNewPost, DialogeletePostByPostId, ReadAllRecovered, ReadAllUserPostedItems, ReadPost, ReadPostWithLimit, UpdatePostById } from '../controllers/post.controller.js'
 import { VerifyUser } from '../middlewares/Verifyuser.js'
 import { SubscribeModel } from '../models/subscribe.model.js'
 
@@ -12,6 +12,7 @@ const mainRouter = express.Router() // Router Initialed
 // Create - Post
 mainRouter.post('/post/add', VerifyUser, CreateNewPost) // Creating New Post
 mainRouter.post('/post/add/recover', VerifyUser, AddRecoverPost) // Creating new recover
+mainRouter.post('/post/update', VerifyUser, UpdatePostById) //Update Post By Id
 
 // Read - Get
 mainRouter.get('/post/read', VerifyUser, ReadPost) // Read Post
