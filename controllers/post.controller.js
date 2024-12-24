@@ -117,7 +117,7 @@ const ReadAllRecovered = async (req, res) => {
     }
 }
  
-// Read all latest posts with limit
+// Read all latest posts with limit - GET
 const ReadPostWithLimit =  async (req, res) => {
 
     const limit = parseInt(req.query.limit) || 6
@@ -136,4 +136,26 @@ const ReadPostWithLimit =  async (req, res) => {
     }
 }
 
-export { CreateNewPost, ReadPost, AddRecoverPost, ReadAllRecovered, ReadPostWithLimit }
+
+// Read All user Posted Items - GET
+const ReadAllUserPostedItems = async (req, res) => {
+    const { email } = req.query
+    try {
+        if (!email) {
+            return res.status(400).send({ error: "Email query is required" })
+        }
+        const finAllDataByEmail = await PostModel.find({ email: email })
+
+        res.send(finAllDataByEmail)
+
+    } catch (err) {
+
+        res.status(500).send({
+            error: "Something went wrong to get data",
+            msg: err.message, 
+        })
+    }
+}
+
+
+export { CreateNewPost, ReadPost, AddRecoverPost, ReadAllRecovered, ReadPostWithLimit, ReadAllUserPostedItems }
