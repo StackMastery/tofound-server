@@ -1,4 +1,3 @@
-import { VerifyUser } from "../middlewares/Verifyuser.js"
 import { PostModel } from "../models/post.model.js"
 import { RecoverModel } from "../models/recover.model.js"
 
@@ -158,4 +157,26 @@ const ReadAllUserPostedItems = async (req, res) => {
 }
 
 
-export { CreateNewPost, ReadPost, AddRecoverPost, ReadAllRecovered, ReadPostWithLimit, ReadAllUserPostedItems }
+// Delete Post By user and Post id
+const DialogeletePostByPostId = async (req, res) => {
+    const { postid } = req.query; 
+
+    if (!postid) {
+        return res.status(400).send('Post ID is required');
+    }
+
+    try{
+        const deletePost = await PostModel.findByIdAndDelete(postid)
+
+        if (!deletePost) {
+            return res.status(404).json({ error: 'Post not found', succes: false });
+        }
+      
+        res.status(200).json({ msg: 'Post deleted successfully', succes: true });    }
+    catch(err){
+        res.status(500).json({ error: 'something went wrong' });
+    }
+};
+
+
+export { CreateNewPost, ReadPost, AddRecoverPost, ReadAllRecovered, ReadPostWithLimit, ReadAllUserPostedItems, DialogeletePostByPostId }

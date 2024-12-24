@@ -1,6 +1,6 @@
 import express from 'express'
 import { AuthLogout, authUserToken } from '../controllers/auth.controller.js'
-import { AddRecoverPost, CreateNewPost, ReadAllRecovered, ReadAllUserPostedItems, ReadPost, ReadPostWithLimit } from '../controllers/post.controller.js'
+import { AddRecoverPost, CreateNewPost, DialogeletePostByPostId, ReadAllRecovered, ReadAllUserPostedItems, ReadPost, ReadPostWithLimit } from '../controllers/post.controller.js'
 import { VerifyUser } from '../middlewares/Verifyuser.js'
 import { SubscribeModel } from '../models/subscribe.model.js'
 
@@ -18,6 +18,9 @@ mainRouter.get('/post/read', VerifyUser, ReadPost) // Read Post
 mainRouter.get('/post/all/recovered', VerifyUser, ReadAllRecovered ) // Read All Recovered Posts
 mainRouter.get('/post/read/limit', ReadPostWithLimit) //For Home
 mainRouter.get('/post/read/my', VerifyUser, ReadAllUserPostedItems) //For user Posted Items
+
+// Delete = DELETE
+mainRouter.delete('/post/delete', VerifyUser, DialogeletePostByPostId) //Delete Post by Post Id
 
 // Auth Routes
 mainRouter.post('/auth/create', authUserToken) // Genaret JWT token And Seting To Cookie
