@@ -211,6 +211,29 @@ const UpdatePostById = async (req, res) => {
       res.status(500).json({ msg: 'Something went wrong to updating the post', error: err.message });
     }
   };
-  
 
-export { CreateNewPost, ReadPost, AddRecoverPost, ReadAllRecovered, ReadPostWithLimit, ReadAllUserPostedItems, DialogeletePostByPostId, UpdatePostById }
+
+// All Post Infinitie Scroll Api
+const AllPostInfinte = async (req, res) => {
+    const { pages = 1, limit = 10 } = req.query;
+
+    const pageLimit = parseInt(pages, 10);
+    const limits = parseInt(limit, 10);
+    const offset = (pageLimit - 1) * limits;
+
+    try {
+        const totalPosts = await PostModel.countDocuments();
+        const allPosts = await PostModel.find().skip(offset).limit(limits).sort({createdAt: -1})
+
+        res.json({
+            posts: allPosts,
+            totalPosts,
+            currentPage: pageLimit,
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+
+export { CreateNewPost, ReadPost, AddRecoverPost, ReadAllRecovered, ReadPostWithLimit, ReadAllUserPostedItems, DialogeletePostByPostId, UpdatePostById, AllPostInfinte }
